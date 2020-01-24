@@ -6,3 +6,9 @@ In this training, all the concepts introduced are related to the ABAP-OO program
 However, as we enter the paradigm of oriented object programming, for those with some knowledge on it, you'll find a lot of similarities with what other languages are using.
 Let's start, shall we ?
 ## Concepts
+
+### Class
+A class is the generic word that will be used to describe the skeletton of an object of the said class.
+A class defines **ATTRIBUTES** and **BEHAVIORS**
+A set of **VALUATED ATTRIBUTES** defines a **STATE**.
+The **BEHAVIOR** _alters/change_ this **STATE**.
