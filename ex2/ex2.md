@@ -16,17 +16,17 @@ Constant attributes are defined using **CONSTANTS** keyword
 ```
 CLASS lcl_flight DEFINITION.
 
-PUBLIC SECTION.
+  PUBLIC SECTION.
 
-DATA : mv_instance_attr type string value 'Instance attribute'.
-CLASS-DATA: mv_static_attr type string value 'Static attribute'.
-CONSTANTS: mv_constant_attr type string value 'Constant attribute'.
+    DATA : mv_instance_attr type string value 'Instance attribute'.
+    CLASS-DATA: mv_static_attr type string value 'Static attribute'.
+    CONSTANTS: mv_constant_attr type string value 'Constant attribute'.
 
-PRIVATE SECTION.
+  PRIVATE SECTION.
 
-DATA : mv_instance_attr2 type string value 'Instance attribute 2'.
-CLASS-DATA: mv_static_attr2 type string value 'Static attribute 2'.
-CONSTANTS: mv_constant_attr2 type string value 'Constant attribute 2'.
+    DATA : mv_instance_attr2 type string value 'Instance attribute 2'.
+    CLASS-DATA: mv_static_attr2 type string value 'Static attribute 2'.
+    CONSTANTS: mv_constant_attr2 type string value 'Constant attribute 2'.
 
 ENDCLASS
 ```
@@ -61,14 +61,14 @@ DATA : mv_instance_readonly_attr type string value 'Instance attribute read-only
 
 ## Access
 
--	Static and constant attributes are accessible through \<class_name\> *=\>* \<class_attributes\>
+-	Static and constant attributes are accessible through \<class_name\> *=\>* \<class_attribute\>
 
 ```
 DATA(lv_static_attr) = lcl_flight=>mv_static_attr
 DATA(lv_constant_attr) = lcl_flight=>mv_constant_attr
 ```
 
--	Instance attributes are accessible through \<reference\> *-\>* \<instance_attributes\>
+-	Instance attributes are accessible through \<reference\> *-\>* \<instance_attribute\>
 ```
 DATA(lv_instance_attr) = lo_flight->mv_instance_attr
 ```
@@ -111,35 +111,70 @@ Please note the **S** at the end of the keyword. It's important to understand th
 ```
 CLASS lcl_flight DEFINITION.
 
-PUBLIC SECTION.
+  PUBLIC SECTION.
 
-DATA : mv_instance_attr type string value 'Instance attribute'.
-CLASS-DATA: mv_static_attr type string value 'Static attribute'.
-CONSTANTS: mv_constant_attr type string value 'Constant attribute'.
+    DATA : mv_instance_attr type string value 'Instance attribute'.
+    CLASS-DATA: mv_static_attr type string value 'Static attribute'.
+    CONSTANTS: mv_constant_attr type string value 'Constant attribute'.
 
-METHODS:  my_first_method IMPORTING iX_param1 TYPE c [OPTIONAL/DEFAULT]
-                  EXPORTING eX_param1 TYPE c
-                  CHANGING  cX_param1 TYPE c [OPTIONAL/DEFAULT]
-                  RETURNING VALUE( rX_param ) TYPE c
-                  EXECPTIONS ex_exception,
-           my_second_method IMPORTING iX_param1 TYPE c [OPTIONAL/DEFAULT]
-                  EXPORTING eX_param1 TYPE c
-                  CHANGING  cX_param1 TYPE c [OPTIONAL/DEFAULT]
-                  RETURNING VALUE( rX_param ) TYPE c
-                  EXECPTIONS ex_exception.
-                  
-CLASS-METHODS:  my_static_method IMPORTING iX_param1 TYPE c [OPTIONAL/DEFAULT]
-                  EXPORTING eX_param1 TYPE c
-                  CHANGING  cX_param1 TYPE c [OPTIONAL/DEFAULT]
-                  RETURNING VALUE( rX_param ) TYPE c
-                  EXECPTIONS ex_exception.               
-                  
-PRIVATE SECTION.
+    METHODS:  my_first_method IMPORTING iX_param1 TYPE c [OPTIONAL/DEFAULT]
+                      EXPORTING eX_param1 TYPE c
+                      CHANGING  cX_param1 TYPE c [OPTIONAL/DEFAULT]
+                      RETURNING VALUE( rX_param ) TYPE c
+                      EXECPTIONS ex_exception,
+               my_second_method IMPORTING iX_param1 TYPE c [OPTIONAL/DEFAULT]
+                      EXPORTING eX_param1 TYPE c
+                      CHANGING  cX_param1 TYPE c [OPTIONAL/DEFAULT]
+                      RETURNING VALUE( rX_param ) TYPE c
+                      EXECPTIONS ex_exception.
 
-DATA : mv_instance_attr2 type string value 'Instance attribute 2'.
-CLASS-DATA: mv_static_attr2 type string value 'Static attribute 2'.
-CONSTANTS: mv_constant_attr2 type string value 'Constant attribute 2'.
+    CLASS-METHODS:  my_static_method IMPORTING iX_param1 TYPE c [OPTIONAL/DEFAULT]
+                      EXPORTING eX_param1 TYPE c
+                      CHANGING  cX_param1 TYPE c [OPTIONAL/DEFAULT]
+                      RETURNING VALUE( rX_param ) TYPE c
+                      EXECPTIONS ex_exception.               
+
+  PRIVATE SECTION.
+
+    DATA : mv_instance_attr2 type string value 'Instance attribute 2'.
+    CLASS-DATA: mv_static_attr2 type string value 'Static attribute 2'.
+    CONSTANTS: mv_constant_attr2 type string value 'Constant attribute 2'.
 
 ENDCLASS
 ```
+Now we need also to implement these methods, associate a code to it.
 
+This is achieve in the **IMPLEMENTATION SECTION**
+
+```
+CLASS lcl_flight DEFINITION.
+
+  METHOD my_first_method.
+  WRITE:/ "Hello World".
+  ENDMETHOD.
+
+  METHOD my_second_method.
+  WRITE:/ "I'm Groot".
+  ENDMETHOD.
+
+  METHOD my_static_method.
+  WRITE:/ "I'm static".
+  ENDMETHOD.
+
+ENDCLASS
+```
+## Access
+-	Static methods are callable through \<class_name\> *=\>* \<class_method\>
+
+```
+lcl_flight=>my_static_method( ).
+my_static_method( ). "within the context of an instance or static method
+```
+
+-	Instance attributes are callable through \<reference\> *-\>* \<instance_method\>
+```
+lo_flight->mv_first_method( ).
+mv_first_method( ) "within the context of an instance method <=> me->my_first_method( ).
+```
+
+# Special methods (constructors)
