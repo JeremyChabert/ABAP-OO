@@ -12,3 +12,12 @@ A class is the generic word that will be used to describe the skeletton of an ob
 A class defines **ATTRIBUTES** and **BEHAVIORS**
 A set of **VALUATED ATTRIBUTES** defines a **STATE**.
 The **BEHAVIOR** _alters/change_ this **STATE**.
+
+See the class as the ***highest level word to describe*** what will be introduced next
+
+Now let's dig deeper into what's beyond that generic word.
+An ABAP class is composed of 2 parts.
+- Definition 
+- Implementation
+
+![alt text](https://raw.githubusercontent.com/username/projectname/branch/path/to/img.png)
