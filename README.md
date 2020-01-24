@@ -69,4 +69,4 @@ CLASS lcl_flight IMPLEMENTATION.
 ENDCLASS.
 ```
 
-Let's move on to [Exercice 1](ex1.md).
+Let's move on to [Exercice 1](ex1/ex1.md).
