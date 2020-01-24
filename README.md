@@ -46,7 +46,7 @@ Pretty understandable syntax, isn't it ?
 
 Let's take a moment to discuss what this does.
 
-This declares a local class (**L**CL_flight) named lcl_flight. see naming conventions [Naming conventions](NamingConventions.md).
+This declares a local class (**L**CL_flight) named lcl_flight. [See naming conventions](NamingConventions.md).
 
 All the code that will be declared between the two keywords **CLASS** and **ENDCLASS** will belongs to LCL_FLIGHT.
 
