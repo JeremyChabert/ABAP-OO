@@ -1,5 +1,7 @@
 # ABAP-OO
 
+# :construction: Under construction :construction:
+
 ## Forewords
 Hello everyone, welcome to ABAP-OO training. I hope you are all set for 2 days or more of fun learning about oriented object programming.
 
