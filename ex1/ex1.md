@@ -110,4 +110,5 @@ The principle of visibility is **the warranty to hide or show these implementati
 - :green_book: Public
 - :orange_book: Protected
 - :closed_book: Private
+
 ![encapsulation](../img/Encapsulation.PNG)
