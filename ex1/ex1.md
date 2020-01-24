@@ -27,7 +27,7 @@ ENDCLASS.
 
 And this is all it takes to start a class. Well an empty one, but still, you've created your first class.
 
-**VISIBILITY**
+## VISIBILITY
 
 Now, the interesting part begins.
 
@@ -35,7 +35,7 @@ Visibility management is the process to defines what will be accessible/visible 
 
 In **DEFINITION** part, the user define the visibility: 
 
--	***PUBLIC***
+### PUBLIC
 
 A public attribute:
 
@@ -49,7 +49,7 @@ A public method:
 
 _Good Practice: To protect attributes from external access, it’s recommended to set them as PRIVATE_
 
--	***PRIVATE***
+### PRIVATE
 
 A private attribute is visible:
 
@@ -61,7 +61,9 @@ A private method:
 
 _Good Practice: It’s recommended to give access only to method giving a result. The internal process shall remain hidden to the external access_
 
--	***PROTECTED*** (explained later).
+### PROTECTED 
+
+(explained later).
 
 Let's make it visual
 
@@ -91,3 +93,16 @@ ENDCLASS.
 CLASS lcl_flight IMPLEMENTATION.
 
 ENDCLASS.
+```
+
+What you have started to accomplish is a ***successful*** **ENCAPSULATION**
+
+### ENCAPSULATION
+
+The encapsulation is based on **hiding the implementation of a class** to the other components of the system. 
+
+Thus, these components **cannot speculate on the internal state andd behavior** of the object of this class or of the class it-self.
+
+The class is the **shell enveloping its attributes and behaviors**.
+
+The principle of visibility is **the warranty to hide or show these implementations** and solely **expose what the external components have to interact with**
