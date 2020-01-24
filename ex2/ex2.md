@@ -136,7 +136,7 @@ Now we need also to implement these methods, associate a code to it.
 This is achieve in the **IMPLEMENTATION SECTION**
 
 ```
-CLASS lcl_flight DEFINITION.
+CLASS lcl_flight IMPLEMENTATION.
 
   METHOD get_plane_number.
     rv_plane_number = mv_plane_number.
