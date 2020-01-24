@@ -18,15 +18,15 @@ CLASS lcl_flight DEFINITION.
 
   PUBLIC SECTION.
 
-    DATA : mv_instance_attr type string value 'Instance attribute'.
-    CLASS-DATA: mv_static_attr type string value 'Static attribute'.
-    CONSTANTS: mv_constant_attr type string value 'Constant attribute'.
+    DATA : mv_plane_number type string.
+    CLASS-DATA: mv_nb_of_planes type i.
+    CONSTANTS: mv_manufacturer type string value 'Airbus'.
 
   PRIVATE SECTION.
 
-    DATA : mv_instance_attr2 type string value 'Instance attribute 2'.
-    CLASS-DATA: mv_static_attr2 type string value 'Static attribute 2'.
-    CONSTANTS: mv_constant_attr2 type string value 'Constant attribute 2'.
+    DATA : mv_serial_number type string.
+    CLASS-DATA: mv_cockpit_firmware type string value 'EPX-123'.
+    CONSTANTS: mv_airbus_key type string value 'AIB01'.
 
 ENDCLASS
 ```
@@ -64,13 +64,13 @@ DATA : mv_instance_readonly_attr type string value 'Instance attribute read-only
 -	Static and constant attributes are accessible through \<class_name\> *=\>* \<class_attribute\>
 
 ```
-DATA(lv_static_attr) = lcl_flight=>mv_static_attr
-DATA(lv_constant_attr) = lcl_flight=>mv_constant_attr
+DATA(lv_nb_of_planes) = lcl_flight=>mv_nb_of_planes
+DATA(lv_manufacturer) = lcl_flight=>mv_manufacturer
 ```
 
 -	Instance attributes are accessible through \<reference\> *-\>* \<instance_attribute\>
 ```
-DATA(lv_instance_attr) = lo_flight->mv_instance_attr
+DATA(lv_plane_number) = lo_flight->mv_plane_number
 ```
 
 # Methods (behavior)
@@ -113,32 +113,21 @@ CLASS lcl_flight DEFINITION.
 
   PUBLIC SECTION.
 
-    DATA : mv_instance_attr type string value 'Instance attribute'.
-    CLASS-DATA: mv_static_attr type string value 'Static attribute'.
-    CONSTANTS: mv_constant_attr type string value 'Constant attribute'.
+    DATA : mv_plane_number type string.
+    CLASS-DATA: mv_nb_of_planes type i.
+    CONSTANTS: mv_manufacturer type string value 'Airbus'.
 
-    METHODS:  my_first_method IMPORTING iX_param1 TYPE c [OPTIONAL/DEFAULT]
-                      EXPORTING eX_param1 TYPE c
-                      CHANGING  cX_param1 TYPE c [OPTIONAL/DEFAULT]
-                      RETURNING VALUE( rX_param ) TYPE c
-                      EXECPTIONS ex_exception,
-               my_second_method IMPORTING iX_param1 TYPE c [OPTIONAL/DEFAULT]
-                      EXPORTING eX_param1 TYPE c
-                      CHANGING  cX_param1 TYPE c [OPTIONAL/DEFAULT]
-                      RETURNING VALUE( rX_param ) TYPE c
-                      EXECPTIONS ex_exception.
+    METHODS:  get_plane_number RETURNING VALUE( rv_plane_number ) TYPE c
+               give_name IMPORTING iv_name TYPE c.
 
-    CLASS-METHODS:  my_static_method IMPORTING iX_param1 TYPE c [OPTIONAL/DEFAULT]
-                      EXPORTING eX_param1 TYPE c
-                      CHANGING  cX_param1 TYPE c [OPTIONAL/DEFAULT]
-                      RETURNING VALUE( rX_param ) TYPE c
-                      EXECPTIONS ex_exception.               
+    CLASS-METHODS:  change_firmware IMPORTING iv_new_firmware TYPE c,
+                    get_number_of_planes RETURNING VALUE(rv_nb_of_planes) TYPE i.
 
   PRIVATE SECTION.
 
-    DATA : mv_instance_attr2 type string value 'Instance attribute 2'.
-    CLASS-DATA: mv_static_attr2 type string value 'Static attribute 2'.
-    CONSTANTS: mv_constant_attr2 type string value 'Constant attribute 2'.
+    DATA : mv_serial_number type string.
+    CLASS-DATA: mv_cockpit_firmware type string value 'EPX-123'.
+    CONSTANTS: mv_airbus_key type string value 'AIB01'.
 
 ENDCLASS
 ```
@@ -149,32 +138,35 @@ This is achieve in the **IMPLEMENTATION SECTION**
 ```
 CLASS lcl_flight DEFINITION.
 
-  METHOD my_first_method.
-  WRITE:/ "Hello World".
+  METHOD get_plane_number.
+    rv_plane_number = mv_plane_number.
   ENDMETHOD.
 
-  METHOD my_second_method.
-  WRITE:/ "I'm Groot".
+  METHOD give_name.
+    mv_name = iv_name.
   ENDMETHOD.
 
-  METHOD my_static_method.
-  WRITE:/ "I'm static".
+  METHOD change_firmware.
+    mv_cockpit_firmware = iv_new_firmware.
   ENDMETHOD.
-
+  
+  METHOD get_number_of_planes.
+    rv_nb_of_planes = mv_nb_of_planes.
+  ENDMETHOD.
 ENDCLASS
 ```
 ## Access
 -	Static methods are callable through \<class_name\> *=\>* \<class_method\>
 
 ```
-lcl_flight=>my_static_method( ).
-my_static_method( ). "within the context of an instance or static method
+lcl_flight=>get_number_of_planes( ).
+get_number_of_planes( ). "within the context of an instance or static method
 ```
 
 -	Instance attributes are callable through \<reference\> *-\>* \<instance_method\>
 ```
-lo_flight->mv_first_method( ).
-mv_first_method( ) "within the context of an instance method <=> me->my_first_method( ).
+lo_flight->give_name( ).
+get_plane_number( ) "within the context of an instance method <=> me->my_first_method( ).
 ```
 
 # Special methods (constructors)
