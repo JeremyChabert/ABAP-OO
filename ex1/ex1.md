@@ -95,14 +95,19 @@ CLASS lcl_flight IMPLEMENTATION.
 ENDCLASS.
 ```
 
-What you have started to accomplish is a ***successful*** **ENCAPSULATION**
+What you have typed is the beginning of a ***successful*** **ENCAPSULATION**
 
 ### ENCAPSULATION
 
-The encapsulation is based on **hiding the implementation of a class** to the other components of the system. 
+The encapsulation is based on **hiding the definition of a class** to the other components of the system. 
 
-Thus, these components **cannot speculate on the internal state andd behavior** of the object of this class or of the class it-self.
+Thus, these components **cannot speculate on the internal state andd behavior** of an object of this class or of the class it-self.
 
 The class is the **shell enveloping its attributes and behaviors**.
 
 The principle of visibility is **the warranty to hide or show these implementations** and solely **expose what the external components have to interact with**
+
+- :green_book: Public
+- :orange_book: Protected
+- :closed_book: Private
+![encapsulation](../img/Encapsulation.PNG)
