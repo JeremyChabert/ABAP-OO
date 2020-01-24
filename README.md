@@ -20,4 +20,4 @@ An ABAP class is composed of 2 parts.
 - Definition 
 - Implementation
 
-![alt text](https://raw.githubusercontent.com/username/projectname/branch/path/to/img.png)
+![Class definition implementation](img/Class_Definition_Implementation.PNG)
