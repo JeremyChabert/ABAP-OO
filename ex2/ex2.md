@@ -1,8 +1,8 @@
-#Attributes (state)
+# Attributes (state)
 
 The attributes describe the list of variables that can be valuated in the instance of a class
 
-There are **3** types of attributes
+There are **3** level of attributes
 - **INSTANCE** attributes
 - **STATIC** attributes
 - **CONSTANT** attributes
@@ -61,11 +61,54 @@ DATA : mv_instance_readonly_attr type string value 'Instance attribute read-only
 
 ## Access
 
+-	Static and constant attributes are accessible through \<class_name\> *=\>* \<class_attributes\>
 
 ```
-REPORT ZMYREPORT
+DATA(lv_static_attr) = lcl_flight=>mv_static_attr
+DATA(lv_constant_attr) = lcl_flight=>mv_constant_attr
+```
 
+-	Instance attributes are accessible through \<reference\> *-\>* \<instance_attributes\>
+```
+DATA(lv_instance_attr) = lo_flight->mv_instance_attr
+```
 
+# Methods (behavior)
+
+The methods describe the collection of methods that can be used to alter the state of our class or instance itself.
+
+A method has a **SIGNATURE** describe by:
+- none to many **IMPORTING** parameters
+- none to many **EXPORTING** parameters
+- none to many **CHANGING** parameters
+- none to **ONE** **RETURNING** parameter
+- none to many **EXCEPTIONS**
+
+```
+  my_first_method IMPORTING iX_param1 TYPE c [OPTIONAL/DEFAULT]
+                  EXPORTING eX_param1 TYPE c
+                  CHANGING  cX_param1 TYPE c [OPTIONAL/DEFAULT]
+                  RETURNING VALUE( rX_param ) TYPE c
+                  EXECPTIONS ex_exception.
+```
+
+There are **2** level of methods
+- **INSTANCE** method define below keyword **CLASS-METHODS**
+- **STATIC** method define below keyword **METHODS**
+
+Please note the **S** at the end of the keyword. It's important to understand that the keyword refers to a **COLLECTION** even if only one method is defined below the keyword.
+
+## Properties
+
+- Static
+  -	It can interact only with static attributes.
+  - It can be called without any instance 
+ 
+- Instance
+  -	It can interact with static attributes **AND** instance attributes
+  - It has to be called in relation to an instance
+
+```
 CLASS lcl_flight DEFINITION.
 
 PUBLIC SECTION.
@@ -74,6 +117,23 @@ DATA : mv_instance_attr type string value 'Instance attribute'.
 CLASS-DATA: mv_static_attr type string value 'Static attribute'.
 CONSTANTS: mv_constant_attr type string value 'Constant attribute'.
 
+METHODS:  my_first_method IMPORTING iX_param1 TYPE c [OPTIONAL/DEFAULT]
+                  EXPORTING eX_param1 TYPE c
+                  CHANGING  cX_param1 TYPE c [OPTIONAL/DEFAULT]
+                  RETURNING VALUE( rX_param ) TYPE c
+                  EXECPTIONS ex_exception,
+           my_second_method IMPORTING iX_param1 TYPE c [OPTIONAL/DEFAULT]
+                  EXPORTING eX_param1 TYPE c
+                  CHANGING  cX_param1 TYPE c [OPTIONAL/DEFAULT]
+                  RETURNING VALUE( rX_param ) TYPE c
+                  EXECPTIONS ex_exception.
+                  
+CLASS-METHODS:  my_static_method IMPORTING iX_param1 TYPE c [OPTIONAL/DEFAULT]
+                  EXPORTING eX_param1 TYPE c
+                  CHANGING  cX_param1 TYPE c [OPTIONAL/DEFAULT]
+                  RETURNING VALUE( rX_param ) TYPE c
+                  EXECPTIONS ex_exception.               
+                  
 PRIVATE SECTION.
 
 DATA : mv_instance_attr2 type string value 'Instance attribute 2'.
@@ -81,10 +141,5 @@ CLASS-DATA: mv_static_attr2 type string value 'Static attribute 2'.
 CONSTANTS: mv_constant_attr2 type string value 'Constant attribute 2'.
 
 ENDCLASS
-
-START-OF-SELECTION.
-
 ```
-
-#Methods (behavior)
 
