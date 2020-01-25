@@ -210,7 +210,8 @@ when you call it, you'll use it as follow :
                   EXECPTIONS ex_exception.
 ```
 It's all about the referential you're considering. Let's take a look at this little diagram
-![referentials](../img/referentials)
+
+![referentials](../img/referentials.PNG)
 
 When the observer is from an external referential, the caller is exporting parameters to the method and then he's importing/receiving results from the method.
 
