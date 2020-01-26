@@ -31,3 +31,21 @@ lo_flight1 === lo_flight2 ? => FALSE
 ```
 
 :question: Why ?
+
+## Memory address/pointers
+
+
+## Garbage collector
+
+The Garbage collector **deletes from memory any object as soon as there are no longer any reference on it.** 
+
+It’s a system routine that’s delete automatically these objects whenever it’s not possible to address from the memory. 
+
+It frees memory space that was busied by these references.
+
+## Practical use of reassignement
+
+
+
+
+
