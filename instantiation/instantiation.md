@@ -34,6 +34,11 @@ lo_flight1 === lo_flight2 ? => FALSE
 
 ## Memory address/pointers
 
+A create object statement allocates a unique **MEMORY ADDRESS*.
+
+lo_flight1 and lo_flight2 have then 2 differents **POINTERS** to this **ADDRESS**.
+
+Even if they share the same state, they do not share the same address.
 
 ## Garbage collector
 
@@ -41,11 +46,41 @@ The Garbage collector **deletes from memory any object as soon as there are no l
 
 It’s a system routine that’s delete automatically these objects whenever it’s not possible to address from the memory. 
 
-It frees memory space that was busied by these references.
+It frees memory space that hold these references.
 
 ## Practical use of reassignement
 
+We just said that Garbage collector deletes any object that doesn't have any reference.
 
+:question: How do we do manipulate several instances and keep the code concise without losing the memory space of an instance ?
 
+Use a **INTERNAL TABLE OF REFERENCE VARIABLE**
+```
+DATA : lto_flights TYPE TABLE REF TO lcl_flight.
+```
 
+```
+DATA : lo_flight TYPE REF TO lcl_flight,
+       lo_flight1 TYPE REF TO lcl_flight,
+       lto_flight TYPE TABLE REF TO lcl_flight.
 
+CREATE OBJECT lo_flight
+               EXPORTING iv_name = 'SIA-001'.
+APPEND lo_flight1 TO lto_flight.
+CREATE OBJECT lo_flight1
+               EXPORTING iv_name = 'AFR-001'.
+APPEND lo_flight1 TO lto_flight.
+
+LOOP AT lto_flight TO lo_flight.
+...
+WRITE:\ lo_flight->mv_name.
+"first iter => 'SIA-001'.
+"second iter => 'AFR-001'.
+ENDLOOP.
+```
+
+**REMEMBER THIS** Internal table of variable reference allows to manipulate several instances without losing any into the garbage collection
+
+## NAMESPACE
+
+## DELEGATION
