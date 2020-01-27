@@ -55,6 +55,7 @@ We just said that Garbage collector deletes any object that doesn't have any ref
 :question: How do we do manipulate several instances and keep the code concise without losing the memory space of an instance ?
 
 Use a **INTERNAL TABLE OF REFERENCE VARIABLE**
+
 ```
 DATA : lto_flights TYPE TABLE REF TO lcl_flight.
 ```
@@ -67,20 +68,50 @@ DATA : lo_flight TYPE REF TO lcl_flight,
 CREATE OBJECT lo_flight
                EXPORTING iv_name = 'SIA-001'.
 APPEND lo_flight1 TO lto_flight.
+
 CREATE OBJECT lo_flight1
                EXPORTING iv_name = 'AFR-001'.
 APPEND lo_flight1 TO lto_flight.
 
 LOOP AT lto_flight TO lo_flight.
-...
-WRITE:\ lo_flight->mv_name.
-"first iter => 'SIA-001'.
-"second iter => 'AFR-001'.
+       ...
+       WRITE:\ lo_flight->mv_name.
+       "first iter => 'SIA-001'.
+       "second iter => 'AFR-001'.
 ENDLOOP.
 ```
-
 **REMEMBER THIS** Internal table of variable reference allows to manipulate several instances without losing any into the garbage collection
 
 ## NAMESPACE
+
+In a class, names of attributes, methods, events, constants, types, and aliases all share the same namespace.
+
+Methods include a local namespace. Definitions of variables can cover the components of a class.
+
+You can address the object itself from its own methods using the reference variable implicitly available: **ME**.
+
+```
+CLASS lcl_flight DEFINITION.
+  PUBLIC SECTION.
+    METHODS : constructor IMPORTING iv_name TYPE STRING.
+  PRIVATE SECTION.
+    DATA : name type STRING.
+ENDCLASS.
+
+CLASS lcl_flight IMPLEMENTATION.
+   METHOD constructor.
+       DATA name TYPE string value '-airplane'.
+       CONCATENATE im_name name INTO name. 
+   ENDMETHOD.
+ENDCLASS.
+```
+```
+[...]
+ METHOD constructor.
+    DATA name TYPE string value '-airplane'.
+    CONCATENATE im_name name INTO ME->name. 
+ ENDMETHOD.
+[...]
+```
 
 ## DELEGATION
