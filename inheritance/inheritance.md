@@ -4,7 +4,7 @@
 
 Inheritance is a relation in which a class (the sub-class) is **inheriting** every characteristics of another class (super-class). 
 
-The sub-class can also **add new features** (attributes, methods, events) and **may replace the inherited method by its own implementation.**
+The sub-class can also **add new features** (attributes, methods, events (to be introduce later) ) and **may replace the inherited method by its own implementation.**
 
 Inheritance can be view as a **link of similarity** between classes. In the below example, the similarities of **passenger airplane** and **cargo airplane** are inherited from the **SUPER-CLASS** lcl_airplane, and so on.
 
@@ -15,8 +15,7 @@ Inheritance can be view as a **link of similarity** between classes. In the belo
 Doing inheritance, the behavior of a class is getting more and more specific.
 
 Rule of :thumbsup: : **A sub-class is a SPECIALIZATION of the behavior and state of the super-class**
-
-The reverse way is called **GENERALIZATION**. As you move to the top, you're moving to a more general behavior and state.
+The reverse way is called **GENERALIZATION**. As you move to the top, you're moving to a more generic behavior and state.
 
 Rule of :thumbsup: in SAP: **There a no multiple inheritance**. A sub-class cannot inherit from 2 classes directly.
 
@@ -46,7 +45,9 @@ After inheriting, you can add new components (attributes and/or methods) to a su
 
 This is what is called **REDEFINITION**
 
-In ABAP object environment, you can only redefine methods that are **PUBLIC** and **PROTECTED** (:new:)
+In ABAP object environment, you can only redefine methods that are:
+- **PUBLIC**
+- **PROTECTED** (:new:)
 
 ### Limits to redefinition
 - **PRIVATE**
