@@ -14,6 +14,6 @@ Let's start, shall we ?
 
 [Class](class/class.md)
 
-[Attributes & Methods](attributes and methods/attributes_methods.md)
+[Attributes & Methods](attributes_methods/attributes_methods.md)
 
 [Instantiation](instantiation/instantiation.md)
