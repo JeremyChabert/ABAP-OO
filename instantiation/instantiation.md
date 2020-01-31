@@ -34,9 +34,9 @@ lo_flight1 === lo_flight2 ? => FALSE
 
 ## Memory address/pointers
 
-A create object statement allocates a unique **MEMORY ADDRESS*.
+A create object statement allocates a unique **MEMORY ADDRESS**.
 
-lo_flight1 and lo_flight2 have then 2 differents **POINTERS** to this **ADDRESS**.
+lo_flight1 and lo_flight2 have then 2 differents **POINTERS** to these **ADDRESSES**.
 
 Even if they share the same state, they do not share the same address.
 
