@@ -19,7 +19,7 @@ An ABAP class is composed of 2 parts.
 - Definition 
 - Implementation
 
-![Class definition implementation](img/Class_Definition_Implementation.PNG)
+![Class definition implementation](../img/Class_Definition_Implementation.PNG)
 
 ### Definition
 
@@ -120,10 +120,6 @@ A private method:
 
 _Good Practice: It’s recommended to give access only to method giving a result. The internal process shall remain hidden to the external access_
 
-### PROTECTED 
-
-(explained later).
-
 Let's make it visual
 
 ![report_referential](../img/report_referential.PNG)
@@ -166,8 +162,8 @@ The class is the **shell enveloping its attributes and behaviors**.
 
 The principle of visibility is **the warranty to hide or show these implementations** and solely **expose what the external components have to interact with**
 
-- :green_book: Public
-- :orange_book: Protected
-- :closed_book: Private
+- Public - green
+- Protected - orange
+- Private - red
 
 ![encapsulation](../img/Encapsulation.PNG)
