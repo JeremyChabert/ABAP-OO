@@ -12,7 +12,7 @@ However, as we enter the paradigm of oriented object programming, for those with
 Let's start, shall we ?
 ## Concepts
 
-[Class](ex1/ex1.md)
+[Class](class/class.md)
 
 [Attributes & Methods](attributes and methods/attributes_methods.md)
 
