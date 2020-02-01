@@ -20,4 +20,4 @@ Let's start, shall we ?
 
 [Inheritance](inheritance/inheritance.md)
 
-[Advanced Inheritance](inheritance/advancedinheritance.md)
+[Advanced Inheritance](inheritance/advanced_inheritance.md)
