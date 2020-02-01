@@ -17,3 +17,7 @@ Let's start, shall we ?
 [Attributes & Methods](attributes_methods/attributes_methods.md)
 
 [Instantiation](instantiation/instantiation.md)
+
+[Inheritance](inheritance/inheritance.md)
+
+[Advanced Inheritance](inheritance/advancedinheritance.md)
