@@ -62,3 +62,4 @@ ENDCLASS.
 - What are the keywords to wrap the definition part of a class ?
 - Where will you declare attributes that you want to hide from external referential ?
 - Where will you declare a behavior ? Where will you define it ?
+- What's the word that define the process of giving different visiblity settings to attributes and behaviors ?
