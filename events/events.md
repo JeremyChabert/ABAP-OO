@@ -137,6 +137,7 @@ CLASS lcl_airport_controller IMPLEMENTATION.
 ENDCLASS.
 
 ```
+![Event registration](../img/event_registration.png)
 
 #### Deactivate
 
