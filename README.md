@@ -22,7 +22,8 @@ Oh wait, one last word! Exercises are funnier if you type everything and you avo
   - [Exercise 2](exercises/ex2.md)
   
 [Instantiation](instantiation/instantiation.md)
-
+  - [Exercise 3](exercises/ex3.md)
+  
 [Inheritance](inheritance/inheritance.md)
 
 [Advanced Inheritance](inheritance/advanced_inheritance.md)
