@@ -49,7 +49,7 @@ ENDCLASS.
 
 ## Full syntax
 ```
-	(CLASS-)EVENTS: take_off EXPORTING VALUE(ex_name) TYPE name.
+(CLASS-)EVENTS: take_off EXPORTING VALUE(ex_name) TYPE name.
 ```
 With this complete syntax, we see that it's possible to send values along with the event
 
