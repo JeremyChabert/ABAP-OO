@@ -19,7 +19,8 @@ Oh wait, one last word! Exercises are funnier if you type everything and you avo
   - [Exercise 1](exercises/ex1.md)
 
 [Attributes & Methods](attributes_methods/attributes_methods.md)
-
+  - [Exercise 2](exercises/ex2.md)
+  
 [Instantiation](instantiation/instantiation.md)
 
 [Inheritance](inheritance/inheritance.md)
