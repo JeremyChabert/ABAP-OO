@@ -53,7 +53,7 @@ CLASS lcl_flight DEFINITION.
     DATA : mv_plane_number  TYPE string,
            mv_nb_seats      TYPE i,
            mv_nb_passengers TYPE i,
-           mv_on_ground     TYPE abap_bool,
+           mb_on_ground     TYPE abap_bool,
            mv_company       TYPE string.
 	   
   PRIVATE SECTION.
@@ -181,7 +181,7 @@ CLASS lcl_flight DEFINITION.
 ENDCLASS.
 CLASS lcl_flight IMPLEMENTATION.
 	METHOD take_off.
-		mv_on_ground = abap_false.
+		mb_on_ground = abap_false.
 		me->declare_take_off( ).
 		"OR
 		declare_take_off( ).
@@ -233,6 +233,6 @@ WRITE:/ lcl_flight=>get_nb_flights( ).
 
 Run the report (``` F8 ```)
 
-- What is the current state of mv_on_ground of lo_flight ? of lo_flight2 ?
+- What is the current state of mb_on_ground of lo_flight ? of lo_flight2 ?
 
 - What is the output of this statement lcl_flight=>get_nb_flights( ) ?
