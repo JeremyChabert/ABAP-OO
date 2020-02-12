@@ -16,7 +16,7 @@ Oh wait, one last word! Exercises are funnier if you type everything and you avo
 ## Topics
 
 [Class](class/class.md)
-  - [Exercise 1](Exercises/ex1.md)
+  - [Exercise 1](exercises/ex1.md)
 
 [Attributes & Methods](attributes_methods/attributes_methods.md)
 
