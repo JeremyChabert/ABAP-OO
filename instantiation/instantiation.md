@@ -126,7 +126,7 @@ The recipient of this functionality delegates the execution of it to a delegate.
 
 The main benefit of delegation (as a reuse mechanism) is the option to change the behavior of the recipient by substituting delegation (at run-time). 
 
-For example, the delegation allows the aircraft to be equipped with a new tank without altering the call for the client class or airplane.
+For example, the delegation allows the aircraft to be equipped with a new tank without altering the call for the flight class or each wing can receive different instruction that will be handle in the wing class
 
 **Successful encapsulation often requires you to use delegation.**
 
