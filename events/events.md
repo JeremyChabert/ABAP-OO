@@ -2,7 +2,7 @@
 
 An **EVENT** may be trigger by an *INSTANCE* or a *CLASS* to announce a change in its state or the reach of a specific state.
 
-![Events](../img/events.png)
+![Events](../img/events.PNG)
 
 In the example above, the "passenger_airplane" instance triggers the "touched_down" event when altitude reaches 0.
 
@@ -158,13 +158,13 @@ ENDCLASS.
 
 ```
 
-![Event cancellation](../img/event_cancellation.png)
+![Event cancellation](../img/event_cancellation.PNG)
 
 In the above example, the air controller Schmidt cancels his recording of the landing event for the flight "LH Berlin" once it has landed.
 
 At the next landing of "LH Berlin" (new trigger of landing) will be carried out at another airport and will no longer concern air controller Schmidt.
 
-![Registration table](../img/registration_table.png)
+![Registration table](../img/registration_table.PNG)
 
 Each object that has defined events has an internal table: the processing table. 
 
