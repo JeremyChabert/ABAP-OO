@@ -190,7 +190,7 @@ The visibility in an event handling method establishes authorization for SET-HAN
 
 They may be used at any point in this class and its subclasses only in this class.
 
-An event handling method **must have the same or less visibility than the event to which it refers.**
+An event handling method **must have the same or a lesser visibility than the event to which it refers.**
 
 - _EVENT_
 	- PUBLIC
