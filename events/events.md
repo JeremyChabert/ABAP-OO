@@ -2,7 +2,7 @@
 
 An **EVENT** may be trigger by an *INSTANCE* or a *CLASS* to announce a change in its state or the reach of a specific state.
 
-![Events](../img/events.PNG)
+![Events](../img/events.png)
 
 In the example above, the "passenger_airplane" instance triggers the "touched_down" event when altitude reaches 0.
 
@@ -87,14 +87,92 @@ In ABAP OO, it comes in 2 steps:
 - declare at runtime **HANDLERS**
 
 Let's see the syntax.
+
 ### Method event
+
 ```
 CLASS lcl_traffic_controller DEFINITION.
 	PUBLIC SECTION.
-	(CLASS-)METHODS : remove_plane_from_board FOR EVENT take_off OF lcl_flight.
-ENDCLASS.
+	(CLASS-)METHODS : remove_plane_from_board FOR EVENT take_off OF lcl_flight 
+	IMPORTING <ex_name> ... <ex_nameN> (SENDER).
 ```
 
+Event processing methods are triggered by events (RAISE EVENT), **BUT** they can also be called as normal methods (CALL METHOD).
+
+The signature of the event handling method includes only IMPORTING parameters. 
+
+Only the parameters resulting from the definition of the corresponding event (event interface) can be used. 
+
+In addition to explicitly defined event interface parameters, the **SENDER** default parameter can also be listed as an IMPORTING parameter for instance events. 
+
+A reference is thus passed to the object triggering the event.
+
+### Listeners
+
+```
+SET HANDLER <processing_class_name>-><on_event_method> FOR <instance>| FOR ALL INSTANCES [ACTIVATION <var>]
+```
+
+You can record an event using 'X' ACTIVATION, and then cancel the handling using ACTIVATION SPACE. 
+
+You can also use a <var> variable with one of these two values. 
+
+If you do not specify a value for ACTIVATION, the event is saved.
+
+#### Activate
+
+```
+CLASS lcl_airport_controller DEFINITION.
+	PUBLIC SECTION.
+		METHODS: add_airplane IMPORTING im_plane TYPE REF TO lcl_airplane.
+	PRIVATE SECTION.
+		METHODS: on_landing FOR EVENT land OF lcl_flight.
+ENDCLASS.
+
+
+CLASS lcl_airport_controller IMPLEMENTATION.
+	METHOD add_airplane.
+		SET HANDLER on_landing FOR im_plane ACTIVATION abap_true.
+	ENDMETHOD.
+ENDCLASS.
+
+```
+
+#### Deactivate
+
+
+```
+CLASS lcl_airport_controller DEFINITION.
+	PUBLIC SECTION.
+		METHODS: add_airplane IMPORTING im_plane TYPE REF TO lcl_airplane.
+	PRIVATE SECTION.
+		METHODS: on_landing FOR EVENT land OF lcl_flight.
+ENDCLASS.
+
+
+CLASS lcl_airport_controller IMPLEMENTATION.
+	METHOD on_landing.
+		SET HANDLER on_landing FOR SENDER ACTIVATION space.
+	ENDMETHOD.
+ENDCLASS.
+
+```
+
+![Event cancellation](../img/event_cancellation.png)
+
+In the above example, the air controller Schmidt cancels his recording of the landing event for the flight "LH Berlin" once it has landed.
+
+At the next landing of "LH Berlin" (new trigger of landing) will be carried out at another airport and will no longer concern air controller Schmidt.
+
+![Registration table](../img/registration_table.png)
+
+Each object that has defined events has an internal table: the processing table. 
+
+All objects that have been recorded for events are entered in this table with their event handling methods.
+
+Objects that are saved for an always "active" event will also remain "active". 
+
+The methods of these objects are called when the event is triggered, even if they are no longer accessible via the main memory references.
 
 ## Events and visibility
 
