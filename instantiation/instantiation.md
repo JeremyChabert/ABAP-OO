@@ -1,9 +1,11 @@
 # Content
 
 - Instantiation
-- Re-assignment
 - Memory address
 - Garbage collector
+- Re-assignment
+- Namespace
+- Delegation
 
 # Instantiation
 A class defines a generic set of attributes and behavior for any variable referencing this class.
@@ -54,7 +56,7 @@ We just said that Garbage collector deletes any object that doesn't have any ref
 
 :question: How do we do manipulate several instances and keep the code concise without losing the memory space of an instance ?
 
-Use a **INTERNAL TABLE OF REFERENCE VARIABLE**
+=> **INTERNAL TABLE OF REFERENCE VARIABLE**
 
 ```
 DATA : lto_flights TYPE TABLE REF TO lcl_flight.
@@ -82,7 +84,7 @@ ENDLOOP.
 ```
 **REMEMBER THIS** Internal table of variable reference allows to manipulate several instances without losing any into the garbage collection
 
-## NAMESPACE
+## Namespace
 
 In a class, names of attributes, methods, events, constants, types, and aliases all share the same namespace.
 
@@ -114,4 +116,17 @@ ENDCLASS.
 [...]
 ```
 
-## DELEGATION
+## Delegation
+
+The delegation supposed to have at least 2 objects involved in a treatment of a functionality.
+
+![Delegation](../img/delegation.png)
+
+The recipient of this functionality delegates the execution of it to a delegate.
+
+The main benefit of delegation (as a reuse mechanism) is the option to change the behavior of the recipient by substituting delegation (at run-time). 
+
+For example, the delegation allows the aircraft to be equipped with a new tank without altering the call for the client class or airplane.
+
+**Successful encapsulation often requires you to use delegation.**
+
