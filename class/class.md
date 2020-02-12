@@ -58,33 +58,6 @@ CLASS lcl_flight IMPLEMENTATION.
 
 ENDCLASS.
 ```
-:computer: Using SE38, create a new report called ZABAPOO_TRAIN_***XXX*** where XXX is your trigramme
-
-- Title : My first ABAP OO report
-- Type : Executable report
-- Status: Test report
-
-:floppy_disk: ***save***
-
-Write down following code 
-
-```
-CLASS lcl_flight DEFINITION.
-
-
-ENDCLASS.
-```
-
-:bulb: ***compile***
-
-:question: Why is it compiling ?
-
-:computer: Now add the implementation section. (no tips this time)
-
-:bulb: ***compile***
-
-And this is all it takes to start a class. Well an empty one, but still, you've created your first class.
-
 ## VISIBILITY
 
 Now, the interesting part begins.
@@ -125,16 +98,6 @@ Let's make it visual
 
 ![class_referential](../img/class_referential.PNG)
 
-How do we write it using in the definition of our class ?
-
-:computer: start to type ***PUBLIC*** and use CTRL + space to get suggestions of auto completion.
-
-Do it again for ***PRIVATE***
-
-:floppy_disk: save then :bulb: compile
-
-Now, your code should look like this
-
 ```
 CLASS lcl_flight DEFINITION.
 
@@ -149,7 +112,7 @@ CLASS lcl_flight IMPLEMENTATION.
 ENDCLASS.
 ```
 
-What you have typed is the beginning of a ***successful*** **ENCAPSULATION**
+What you have above is the beginning of a ***successful*** **ENCAPSULATION**
 
 ### ENCAPSULATION
 
