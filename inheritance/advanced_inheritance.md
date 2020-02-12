@@ -73,7 +73,7 @@ This will trigger a system error *MOVE_CAST_ERROR*
 
 When objects of several classes **react differently to the same method call**, we speak of **POLYMORPHISM**. 
 
-This happens when classes implement the same method differently using inheritance then redefining a method from the superclass in subclasses.
+This happens when classes implement the same method differently using inheritance then redefining a method from the superclass in sub-classes.
 
 Suppose the super-class LCL_FELINAE and the sub-classes LCL_ACINONYX, LCL_FELIS
 
@@ -95,9 +95,9 @@ DATA : lo_cargo TYPE REF TO lcl_cargo_airplane,
        lo_airplane_passenger TYPE REF TO lcl_airplane_passenger,
        lt_plane_list TYPE TABLE OF REF TO lcl_flight.
        
-CREATE OBJECT lo_cargo. => address RAER3432x3454
-CREATE OBJECT lo_jet.   => address ZARVDVDEEx4361
-CREATE OBJECT lo_airplane_passenger. => address BC53AVBT434x0874
+CREATE OBJECT lo_cargo. "=> address RAER3432x3454
+CREATE OBJECT lo_jet.   "=> address ZARVDVDEEx4361
+CREATE OBJECT lo_airplane_passenger. "=> address BC53AVBT434x0874
 
 APPEND: lo_cargo TO lt_plane_list,     "=> equivalent to an upcast
         lo_airplane_passenger TO lt_plane_list,
@@ -115,17 +115,19 @@ ENDLOOP.
 ### Abstraction of a class
  
 ```
-CLASS lcl_flight DEFINITION ABSTRACT.
+ CLASS lcl_flight DEFINITION ABSTRACT.
+ [...]
+ ENDCLASS.
 ```
  
 _AN ABSTRACT CLASS **CANNOT** HAVE INSTANCE_. 
  
-References to such classes are used to refer to instances of subclasses of the abstract class at run time. 
- 
+References to such classes are used to refer to instances of sub-classes of the abstract class at run time. 
+
 The CREATE OBJECT statement has an additional option. You can specify the class of the instance explicitly.
  
 ```
- CREATE OBJECT <refClassAbstraite> TYPE <SubClassNonAbstraite>
+ CREATE OBJECT <refClassAbstraite> TYPE <sub-classNonAbstraite>
  
  DATA : lcl_flight TYPE REF TO lcl_flight.
  CREATE OBJECT lo_flight. "==> Would be wrong has AN ABSTRACT CLASS **CANNOT** HAVE INSTANCE_. 
@@ -135,7 +137,7 @@ The CREATE OBJECT statement has an additional option. You can specify the class 
  
 :question: Why does abstract class even exists :question:
  
-Abstract classes are generally used as an incomplete structure for concrete subclasses to define a uniform interface. 
+Abstract classes are generally used as an incomplete structure for concrete sub-classes to define a uniform interface. 
  
 In our example, we don’t want any instance on lcl_flight as we will only define our flights as either “Cargo” or “Passenger”. 
  
@@ -150,9 +152,47 @@ A Felinae shall be of its sub-class type such as Cats or Leopards to be have a p
 - **Classes with at least one abstract method are necessarily abstract.**
 - **Static methods and constructors cannot be abstracted (they cannot be redefined).**
 
+```
+ CLASS lcl_flight DEFINITION ABSTRACT.
+
+	PUBLIC SECTION.
+		METHODS: estimate_fuel_consumption ABSTRACT IMPORTING [...]
+
+ ENDCLASS.
+```
 ## Finalization
- 
+
+### Finalization of a method 
+**A final method in a class cannot be redefined in a sub-class and thus protects itself against redefining.**
+
+```
+ CLASS lcl_flight DEFINITION.
+
+	PUBLIC SECTION.
+		METHODS: take_off FINAL IMPORTING [...]  "<= cannot be redefined in sub-class
+
+ ENDCLASS.
+```
+
 ### Finalization of a class
+**A final class don’t have any sub-classes, thus it’s protected against specialization.**
+
+```
+ CLASS lcl_airplane_jet FINAL DEFINITION. "<= cannot have sub-classes
+	[...]
+ ENDCLASS.
  
+ CLASS lcl_military_cargo FINAL DEFINITION.
+	[...]
+ ENDCLASS.
  
-### Finalization of a method
+ CLASS lcl_postal_cargo FINAL DEFINITION.
+	[...]
+ ENDCLASS.
+```
+## Finalization AND Abstraction
+Methods **CANNOT** be both _FINAL_ and _ABSTRACT_.
+- It would mean that we have a method that’s not yet defined on root class and needs to be implemented at sub-classes but with the addition of “FINAL” would prevent it.
+
+Classes **CAN** be _FINAL_ and _ABSTRACT_.
+- Only static components can be used at this stage
