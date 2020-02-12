@@ -11,6 +11,8 @@ However, as we enter the paradigm of oriented object programming, for those with
 
 Let's start, shall we ?
 
+Oh wait, one last word! Exercises are funnier if you type everything and you avoid to use copy/paste a.k.a ```CTRL + C, CTRL + V```
+
 ## Topics
 
 [Class](class/class.md)
