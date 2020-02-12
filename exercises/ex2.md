@@ -10,14 +10,15 @@ plane_number    | instance attribute  | public  | string
 nb_seats 	| static attribute    | public  | number
 nb_passengers	| instance attribute  | public	| number
 manufacturer	| constant| public    | string  | 'Airbus'
-
+nb_of_flight     | ?    		| ? 	  | ?
+on_ground        | ?    		| ? 	  | ?
 serial_number    | instance attribute   | private | string
 cockpit_firmware | static attribute   	| private | string
 manufacturer_key | constant	      	| private | string  | 'AIB_FAL350'
-nb_of_flight     | ?    		| ? 	  | ?
-on_ground        | ?    		| ? 	  | ?
+random_gen	 | static attribue	| private | cl_abap_random_int
 ```
 
+*Tips
 Instance attributes are declare using keyword **DATA**
 Static attributes are declare using keyword **ClASS-DATA**
 Constant attributes are declare using keyword **CONSTANTS**
@@ -27,7 +28,9 @@ CLASS lcl_flight DEFINITION.
 
   PUBLIC SECTION.
 
-    DATA : mv_plane_number type string.
+    DATA : mv_plane_number type string,
+    	   mv_nb_seats type i,
+	   mv_nb_passengers type i.
     CLASS-DATA: mv_nb_of_planes type i.
     CONSTANTS: mv_manufacturer type string value 'Airbus'.
 	
@@ -44,23 +47,55 @@ Now, your class should look like this:
 CLASS lcl_flight DEFINITION.
 
   PUBLIC SECTION.
-
-    DATA : mv_plane_number TYPE string.
-    CLASS-DATA: mv_nb_of_planes TYPE i.
-    CONSTANTS: c_manufacturer TYPE string VALUE 'Airbus'.
-	
-  PRIVATE SECTION.
   
-    DATA : mv_serial_number TYPE string.
-    CLASS-DATA: mv_cockpit_firmware TYPE string.
+    CONSTANTS: mv_manufacturer TYPE string VALUE 'Airbus'.
+    CLASS-DATA: mv_nb_of_planes TYPE i.
+    DATA : mv_plane_number  TYPE string,
+           mv_nb_seats      TYPE i,
+           mv_nb_passengers TYPE i,
+           mv_on_ground     TYPE abap_bool,
+           mv_company       TYPE string.
+	   
+  PRIVATE SECTION.
     CONSTANTS: c_manufacturer_key TYPE string VALUE 'AIB_FAL350'.
-
-ENDCLASS
+    DATA : mv_serial_number TYPE string.
+    CLASS-DATA: mv_cockpit_firmware TYPE string,
+                mo_random_gen       TYPE REF TO cl_abap_random_int,
+                mv_nb_flights       TYPE i.
+ENDCLASS.
 ```
 
 # Give it a behavior
 
 Still using your local class, let's declare the following behaviors :
+
+- class_constructor
+```
+CLASS lcl_flight DEFINITION.
+	PUBLIC SECTION.
+	[...]
+	CLASS-METHODS : class_constructor.
+ENDCLASS.
+
+CLASS lcl_flight IMPLEMENTATION.
+	METHOD 	class_constructor.
+      
+		DATA: n type i,
+		     seed type i.
+
+		seed = cl_abap_random=>seed( ).
+
+		cl_abap_random_int=>create(
+		  exporting
+		    seed = seed
+		    min = 0
+		    max = 10000
+		  receiving
+		    prng = mo_random_gen
+		).
+	ENDMETHOD.
+ENDCLASS.
+```
 
 - constructor
 ```
@@ -70,6 +105,16 @@ CLASS lcl_flight DEFINITION.
 	constructor IMPORTING iv_plane_number TYPE i
 			      iv_company TYPE string.
 ENDCLASS.
+
+CLASS lcl_flight IMPLEMENTATION.
+	METHOD 	constructor.
+	mv_plane_number = iv_plane_number.
+	mv_company  =  iv_company.
+	mv_nb_seats = 250.
+	mv_serial_number = mo_random_gen->get_next( ).
+	ENDMETHOD.
+ENDCLASS.
+
 ```
 
 - get_free_seats  | instance method | public
@@ -80,7 +125,7 @@ CLASS lcl_flight DEFINITION.
 ENDCLASS.
 CLASS lcl_flight IMPLEMENTATION.
 	METHOD get_free_seats.
-		rv_nb_seats = mv_nb_seats - nb_passengers.
+		rv_nb_seats = mv_nb_seats - mv_nb_passengers..
 	ENDMETHOD.
 ENDCLASS.
 ```
@@ -123,7 +168,7 @@ CLASS lcl_flight DEFINITION.
 ENDCLASS.
 CLASS lcl_flight IMPLEMENTATION.
 	METHOD declare_take_off.
-		WRITE: 'Flight' && mv_plane_number && 'taking off'.
+		WRITE: 'Flight' && mv_serial_number && 'taking off'.
 	ENDMETHOD.
 ENDCLASS.
 ```
@@ -158,3 +203,36 @@ CLASS lcl_flight IMPLEMENTATION.
 	ENDMETHOD.
 ENDCLASS.
 ```
+
+Now in the report, after class definition and implementation, let's add this :
+```
+↑↑↑↑
+"class definition & implementation above
+
+END-OF-SELECTION.
+
+DATA : lo_flight TYPE REF TO lcl_flight.
+
+CREATE OBJECT lo_flight 
+	EXPORTING iv_plane_number = '354'
+		  iv_company	  = 'SIA'.
+		  
+lo_flight->add_passengers( 10 ).
+lo_flight->take_off( ).
+
+DATA(lo_flight2) = lcl_flight=>add_flight( 
+			iv_plane_number = '9443'
+			iv_company	  = 'AFR').
+			
+lo_flight->add_passengers( 56 ).
+lcl_flight=>get_nb_flights( ).
+WRITE:/ lcl_flight=>get_nb_flights( ).
+```
+
+:bulb: Compile (``` CTRL + F3 ```). 
+
+Run the report (``` F8 ```)
+
+- What is the current state of mv_on_ground of lo_flight ? of lo_flight2 ?
+
+- What is the output of this statement lcl_flight=>get_nb_flights( ) ?
