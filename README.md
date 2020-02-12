@@ -22,4 +22,6 @@ Let's start, shall we ?
 
 [Advanced Inheritance](inheritance/advanced_inheritance.md)
 
+[Interfaces](interfaces/interfaces.md)
+
 [Events](events/events.md)
