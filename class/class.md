@@ -57,7 +57,6 @@ CLASS lcl_flight IMPLEMENTATION.
 
 
 ENDCLASS.
-
 ```
 :computer: Using SE38, create a new report called ZABAPOO_TRAIN_***XXX*** where XXX is your trigramme
 
@@ -139,9 +138,9 @@ Now, your code should look like this
 ```
 CLASS lcl_flight DEFINITION.
 
-PUBLIC SECTION.
+    PUBLIC SECTION.
 
-PRIVATE SECTION.
+    PRIVATE SECTION.
 
 ENDCLASS.
 
