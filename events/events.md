@@ -164,6 +164,8 @@ In the above example, the air controller Schmidt cancels his recording of the la
 
 At the next landing of "LH Berlin" (new trigger of landing) will be carried out at another airport and will no longer concern air controller Schmidt.
 
+#### Registration table
+
 ![Registration table](../img/registration_table.png)
 
 Each object that has defined events has an internal table: the processing table. 
