@@ -24,14 +24,14 @@ The relation between class and sub-classes is **ONE-WAY**. A sub-class knows its
 ## Syntax
 
 ```
-CLASS lcl_airplane DEFINITION.
+CLASS lcl_flight DEFINITION.
 
   PUBLIC SECTION.
     METHODS: get_fuel_level RETURNING VALUE(rv_level) TYPE I.
     
 ENDCLASS.
 [...]
-CLASS lcl_airplane_cargo DEFINITION.
+CLASS lcl_airplane_cargo DEFINITION INHERITING FROM lcl_flight.
 
   PUBLIC SECTION.
     METHODS: get_load RETURNING VALUE(rv_load) TYPE I.
@@ -56,7 +56,7 @@ In ABAP object environment, you can only redefine methods that are:
 - **Cannot change the visibility section** of the original method.
 
 ```
-CLASS lcl_airplane DEFINITION.
+CLASS lcl_flight DEFINITION.
 
   PUBLIC SECTION.
     METHODS: get_fuel_level RETURNING VALUE(rv_level) TYPE I,
@@ -64,7 +64,7 @@ CLASS lcl_airplane DEFINITION.
     
 ENDCLASS.
 [...]
-CLASS lcl_airplane_cargo DEFINITION.
+CLASS lcl_airplane_cargo DEFINITION INHERITING FROM lcl_flight.
 
   PUBLIC SECTION.
     METHODS: get_load RETURNING VALUE(rv_load) TYPE I.
