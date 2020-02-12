@@ -14,14 +14,14 @@ It establishes the source code to be executed for redefined methods.
 Rule of :thumbsup: : **The static type is always more general than or the same as the dynamic type.**
 
 ```
-DATA : lo_airplane TYPE REF TO lcl_airplane,
-       "lo_airplane static type => lcl_airplane.
+DATA : lo_flight TYPE REF TO lcl_flight,
+       "lo_flight static type => lcl_flight.
        lo_cargo    TYPE REF TO lcl_cargo.
        "lo_cargo static type => lcl_cargo.
 CREATE OBJECT lo_cargo.
 
-lo_airplane = lo_cargo.
-"lo_airplane dynamic type => lcl_cargo.
+lo_flight = lo_cargo.
+"lo_flight dynamic type => lcl_cargo.
 
 ```
 
@@ -33,37 +33,37 @@ Static and dynamic type allow us to introduce :exclamation: **3 IMPORTANT** :exc
 ## Upcast
 **In object-oriented programming, upcasting is the act of casting a reference of a sub-class to one of its super class(es).**
 ```
-DATA : lo_airplane TYPE REF TO lcl_airplane,
-       "lo_airplane static type => lcl_airplane.
+DATA : lo_flight TYPE REF TO lcl_flight,
+       "lo_flight static type => lcl_flight.
        lo_cargo    TYPE REF TO lcl_cargo.
        "lo_cargo static type => lcl_cargo.
 CREATE OBJECT lo_cargo.
 
-lo_airplane = lo_cargo. "child (cargo) to parent (airplane) type refinement.
+lo_flight = lo_cargo. "child (cargo) to parent (flight) type refinement.
 ```
 ## Downcast
 **In object-oriented programming, downcasting is the act of casting a reference of a base class to one of its derived class(es).**
 ```
-DATA : lo_airplane TYPE REF TO lcl_airplane,
-       "lo_airplane static type => lcl_airplane.
+DATA : lo_flight TYPE REF TO lcl_flight,
+       "lo_flight static type => lcl_flight.
        lo_cargo    TYPE REF TO lcl_cargo.
        "lo_cargo static type => lcl_cargo.
 CREATE OBJECT lo_cargo.
 
-lo_airplane = lo_cargo.
-lo_cargo ?= lo_airplane  "parent (airplane) to child (cargo) type refinement.
+lo_flight = lo_cargo.
+lo_cargo ?= lo_flight  "parent (flight) to child (cargo) type refinement.
 " Note that this operation has to be explicited using '?' which specifies that we know this operation can be perform
 ```
 
 Let's suppose this now 
 ```
-DATA : lo_airplane TYPE REF TO lcl_airplane,
-       "lo_airplane static type => lcl_airplane.
+DATA : lo_flight TYPE REF TO lcl_flight,
+       "lo_flight static type => lcl_flight.
        lo_cargo    TYPE REF TO lcl_cargo.
        "lo_cargo static type => lcl_cargo.
 CREATE OBJECT lo_cargo.
 
-lo_cargo ?= lo_airplane  "parent (airplane) to child (cargo) type refinement.
+lo_cargo ?= lo_flight  "parent (flight) to child (cargo) type refinement.
 ```
 This will trigger a system error *MOVE_CAST_ERROR*
 
@@ -92,15 +92,15 @@ From a technical point of view, **the dynamic type of the reference variable is 
 ```
 DATA : lo_cargo TYPE REF TO lcl_cargo_airplane,
        lo_jet   TYPE REF TO lcl_airplane_jet,
-       lo_airplane TYPE REF TO lcl_airplane,
+       lo_airplane_passenger TYPE REF TO lcl_airplane_passenger,
        lt_plane_list TYPE TABLE OF REF TO lcl_flight.
        
 CREATE OBJECT lo_cargo. => address RAER3432x3454
 CREATE OBJECT lo_jet.   => address ZARVDVDEEx4361
-CREATE OBJECT lo_airplane. => address BC53AVBT434x0874
+CREATE OBJECT lo_airplane_passenger. => address BC53AVBT434x0874
 
 APPEND: lo_cargo TO lt_plane_list,     "=> equivalent to an upcast
-        lo_airplane TO lt_plane_list,
+        lo_airplane_passenger TO lt_plane_list,
         lo_jet TO lt_plane_list.
         
 
