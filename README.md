@@ -14,6 +14,7 @@ Let's start, shall we ?
 ## Topics
 
 [Class](class/class.md)
+  - [Exercice 1](exercices/ex1.md)
 
 [Attributes & Methods](attributes_methods/attributes_methods.md)
 
