@@ -21,3 +21,5 @@ Let's start, shall we ?
 [Inheritance](inheritance/inheritance.md)
 
 [Advanced Inheritance](inheritance/advanced_inheritance.md)
+
+[Events](events/events.md)
