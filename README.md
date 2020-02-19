@@ -23,6 +23,7 @@ Oh wait, one last word! Exercises are fun BUT they are funnier if you type every
   
 [Instantiation](instantiation/instantiation.md)
   - [Exercise 3](exercises/ex3.md)
+  - [Exercise 4](exercises/ex4.md)
   
 [Inheritance](inheritance/inheritance.md)
 
