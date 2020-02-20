@@ -199,17 +199,17 @@ Usually, while programming, the requirement is pretty short :
 - confirm orders
 - convert orders
 - change delivery status
-- calculate next production order steps
+- calculate next steps of production order
 - ...
 
 Using OOP makes it easier to read the code and see if you're inline with the requirement.
 
-It's also an bridge between the developer and the functionnal. A fonctionnal won't understand the core of the method BUT the sequence of the calls.
+It's also a bridge between the developer and the functionnal. A fonctionnal won't understand the content of the method (unless he has a technical background) BUT the sequence of the calls will be sufficient for him to acknowledge the process.
 
 For example, let's suppose we are dealing with 3 types of orders that shall be confirmed and moved to the next status.
 
 ```
-LOOP AT lot_orders INTO lo_order.
+LOOP AT lot_orders INTO DATA(lo_order).
     CHECK lo_order->is_open( ).
     CHECK lo_order->has_items( ).
         lo_order->lock( ).
@@ -219,11 +219,11 @@ LOOP AT lot_orders INTO lo_order.
 ENDLOOP.
 ```
 
-With 8 lines in the main report, I can deal with the whole requirement. 
+With 8 lines in the main report, we can structure the main requirement such as confirming an order. We could have pushed further encapsulation the other calls inside a more generic method called ```confirm_order```
 
-What it does is pretty understandable from everyone and can be cross-checked against specifications.
+Nevertheless, what it does is pretty understandable from everyone and can be cross-checked against the specifications.
 
-And if we enter into the technical details now, we are able to have a set of differents types of order with different:
+And if we enter into the technical aspects now, we are able to have a set of different types of orders with different:
 - lock mechanism
 - confirmation of next step mechanism.
 - setting of next status
