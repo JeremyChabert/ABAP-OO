@@ -162,7 +162,32 @@ LOOP AT lcl_flight=mot_flights INTO lo_flight.
     WRITE:/ lo_flight->estimate_fuel_consumption( 15000 ).
 ENDLOOP. 
 ```
-Let's take a minute or two to appreciate the simplicity of the code.
+
+:warning: if you have an issue at compilation, 
+
+```L'accès aux membres de la classe introduite par "CLASS LCL_AIRPLANE
+DEFINITION DEFERRED" est possible uniquement après la définition (CLASS
+LCL_AIRPLANE DEFINITION).
+```
+Consider then taking the implementation of ```LCL_FLIGHT``` after the definition of ```LCL_CARGO``` and ```LCL_AIRPLANE```.
+
+Like this ↓
+```
+CLASS LCL_FLIGHT DEFINITION.
+ENDCLASS.
+CLASS LCL_CARGO DEFINITION.
+ENDCLASS.
+CLASS LCL_AIRPLANE DEFINITION.
+ENDCLASS.
+
+CLASS LCL_FLIGHT IMPLEMENTATION.
+ENDCLASS.
+CLASS LCL_CARGO IMPLEMENTATION.
+ENDCLASS.
+CLASS LCL_AIRPLANE IMPLEMENTATION.
+ENDCLASS.
+```
+Now, we will take a minute or two to appreciate the simplicity of the code.
 
 - I add flights to my main class
 - I hide the differenciation of instance creation inside the add_flight method.
