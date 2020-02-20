@@ -54,7 +54,6 @@ CLASS lcl_flight DEFINITION.
     METHODS: constructor IMPORTING iv_plane_number TYPE i
                                    iv_company      TYPE string,
       get_free_seats RETURNING VALUE(rv_nb_seats) TYPE i,
-      add_passengers IMPORTING iv_passengers TYPE i,
       declare_take_off,
       take_off.
     METHODS: estimate_fuel_consumption IMPORTING iv_distance TYPE i RETURNING VALUE(re_fuel) TYPE f.
@@ -124,9 +123,6 @@ CLASS lcl_flight IMPLEMENTATION.
               iv_company = iv_company ).
     ADD 1 TO mv_nb_flights.
   ENDMETHOD.
-  METHOD add_passengers.
-    ADD  iv_passengers TO mv_nb_passengers.
-  ENDMETHOD.
   METHOD declare_take_off.
     WRITE: 'Flight' && mv_serial_number && 'taking off'.
   ENDMETHOD.
@@ -157,13 +153,14 @@ ENDCLASS.
 
 CLASS lcl_airplane DEFINITION INHERITING FROM lcl_flight.
   PUBLIC SECTION.
-    DATA : mv_passengers TYPE i,
-           mv_luggages   TYPE i,
-           mv_airline    TYPE string.
+    DATA : mv_luggages TYPE i,
+           mv_airline  TYPE string.
     CONSTANTS : c_avg_weight      TYPE i VALUE 75,
                 c_avg_lugg_weight TYPE i VALUE 22.
     METHODS : constructor IMPORTING iv_plane_number TYPE i iv_airline TYPE string,
-      estimate_fuel_consumption REDEFINITION.
+      estimate_fuel_consumption REDEFINITION,
+      add_passengers IMPORTING iv_passengers TYPE i
+                               iv_luggages   TYPE i.
 
 ENDCLASS.
 
@@ -218,11 +215,14 @@ CLASS lcl_airplane IMPLEMENTATION.
       ADD lv_tank_weight TO lv_total_weight.
     ENDLOOP.
     ADD mv_weight TO lv_total_weight.
-    DATA(lv_pass_n_lugg_weight) = mv_passengers * c_avg_weight + mv_luggages * c_avg_lugg_weight.
+    DATA(lv_pass_n_lugg_weight) = mv_nb_passengers * c_avg_weight + mv_luggages * c_avg_lugg_weight.
     ADD lv_pass_n_lugg_weight TO lv_total_weight.
     re_fuel = ceil( lv_total_weight * iv_distance * c_factor ).
   ENDMETHOD.
-
+  METHOD add_passengers.
+    ADD  iv_passengers TO mv_nb_passengers .
+    ADD  iv_passengers TO mv_luggages.
+  ENDMETHOD.
 ENDCLASS.
 
 
@@ -267,4 +267,4 @@ END-OF-SELECTION.
       iv_company      = 'DHL'
   ).
 
-CHECK sy-subrc EQ 0. "to set debugger.
+  CHECK sy-subrc EQ 0. "to set debugger.
