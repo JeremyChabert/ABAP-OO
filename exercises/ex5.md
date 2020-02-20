@@ -70,8 +70,7 @@ Change the code accordingly and remove ```mv_company``` from ```LCL_CARGO``` has
 ```
 CLASS LCL_AIRPLANE DEFINITION INHERITING FROM LCL_FLIGHT.
 		PUBLIC SECTION.
-		DATA :	mv_passengers type i,
-			mv_luggages   type i,
+		DATA :	mv_luggages   type i,
 			mv_airline	type string.
 		CONSTANTS : c_avg_weight type i value 75,
     c_avg_lugg_weight type i value 22.
@@ -180,12 +179,12 @@ CLASS LCL_AIRPLANE IMPLEMENTATION.
 	      ADD lv_tank_weight TO lv_total_weight.
 	    ENDLOOP.
 	    ADD mv_weight TO lv_total_weight.
-	    DATA(lv_pass_n_lugg_weight) = mv_passengers * c_avg_weight + mv_luggages * c_avg_lugg_weight.
+	    DATA(lv_pass_n_lugg_weight) =  mv_nb_passengers * c_avg_weight + mv_luggages * c_avg_lugg_weight.
 	    ADD lv_pass_n_lugg_weight TO lv_total_weight.
 	    re_fuel = ceil( lv_total_weight * iv_distance * c_factor ).
     ENDMETHOD.	
     METHOD add_passengers.
-         ADD  iv_passengers TO mv_passengers .
+         ADD  iv_passengers TO mv_nb_passengers .
 	 ADD  iv_passengers TO mv_luggages.
     ENDMETHOD.
 ENDCLASS.
