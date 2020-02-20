@@ -1,3 +1,39 @@
+# Abstract and final
+
+If you look at your code now, you'll see that estimate_fuel_consumption is redefined in both ```LCL_CARGO``` and ```LCL_AIRPLANE```.
+
+If we take a moment to consider our code, it's irrelevant to have this method with a possible implemenation at ```LCL_FLIGHT``` level.
+
+Let's fix this and declare this method as abstract.
+```
+METHODS: estimate_fuel_consumption ABSTRACT IMPORTING iv_distance TYPE i RETURNING VALUE(re_fuel) TYPE f .
+```
+and remove the method implementation at ```LCL_FLIGHT``` level
+
+Oh and ```get_nb_flights``` looks pretty final to me, right ?
+
+How could the total of flights could be different with the calling classes ?
+
+So let's proceed to make it final.
+
+ ```
+ get_nb_flights FINAL RETURNING VALUE(rv_nb_flights) TYPE i .
+ ``` 
+ 
+:bulb: compile. Does it ? Why ? Indeed, it's already a class method. :smiley:
+
+But we can do it on get_free_seats:
+
+ ```
+get_free_seats FINAL RETURNING VALUE(rv_nb_seats) TYPE i
+ ```
+ 
+ Last but not least, we are going to prevent ```LCL_CARGO``` from further inheritance so we will declare it as final on class level.
+ 
+  ```
+  CLASS LCL_CARGO DEFINITION FINAL.
+  ```
+ 
 # Using inheritance to its next level
 
 You can comment the code specific in the report starting below ```END-OF-SELECTION```
