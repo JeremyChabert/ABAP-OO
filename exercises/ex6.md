@@ -31,7 +31,7 @@ get_free_seats FINAL RETURNING VALUE(rv_nb_seats) TYPE i
  Last but not least, we are going to prevent ```LCL_CARGO``` from further inheritance so we will declare it as final on class level.
  
   ```
-  CLASS LCL_CARGO DEFINITION FINAL.
+ CLASS lcl_cargo DEFINITION FINAL INHERITING FROM lcl_flight.
   ```
  
 # Using inheritance to its next level
