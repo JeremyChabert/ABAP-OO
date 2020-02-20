@@ -90,6 +90,6 @@ With this example, you see now that we can have a whole set of flights of differ
 
 And they will react differently to behavior calls if they implement it differently.
 
-:warning: ** Within the loop statement you can only call behavior that is implemented by LCL_FLIGHT that is or is not redifined by subclass **
+:warning: **Within the loop statement you can only call behavior that is implemented by LCL_FLIGHT that is or is not redifined by subclass**
 
 If you want to execute specific subclass behavior, you'll have to downcast(narrow) your reference and call the method.
