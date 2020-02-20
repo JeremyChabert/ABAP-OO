@@ -49,13 +49,47 @@ LOOP AT lot_flights INTO lo_flight.
     WRITE:/ lo_flight->estimate_fuel_consumption( 15000 ).
 ENDLOOP.
 ```
-
-With this example, you see now that we can have a whole set of flights of different types in a single table.
-
-And they will react differently to behavior calls if they implement it differently.
-
 Did you notice the syntax we used ? CREATE OBJECT <instance> TYPE <dynamic instance type>.
 
 Well at this point, it's up to you to decide wether you'll instanciate using the statement CREATE OBJECT or the new syntax
 lo_cargo = NEW lcl_cargo( ).
 
+You'll have to declare 2 differents variables and append them into flights. The upcast will be then be executed with the APPEND statement.
+
+```
+  DATA : lv_dynamic_type TYPE string,
+         lot_flights     TYPE TABLE OF REF TO lcl_flight.
+
+  SELECT * FROM zflight_abapoo INTO TABLE @DATA(lt_flights).
+
+  LOOP AT lt_flights INTO DATA(ls_flight).
+
+    CASE ls_flight-flight_type.
+
+      WHEN 'A'.
+        DATA(lo_airplane) = NEW lcl_airplane(
+        iv_plane_number =  ls_flight-flight_number
+        iv_airline      =  ls_flight-company ).
+        APPEND lo_airplane TO lot_flights.
+      WHEN 'C'.
+        DATA(lo_cargo) = NEW lcl_cargo(
+        iv_plane_number =  ls_flight-flight_number
+        iv_company      =  ls_flight-company ).
+        APPEND lo_cargo TO lot_flights.
+      WHEN OTHERS.
+
+    ENDCASE.
+
+  ENDLOOP.
+
+  LOOP AT lot_flights INTO DATA(lo_flight).
+    WRITE:/ lo_flight->estimate_fuel_consumption( 15000 ).
+  ENDLOOP.
+```
+With this example, you see now that we can have a whole set of flights of different types in a single table.
+
+And they will react differently to behavior calls if they implement it differently.
+
+:warning: ** Within the loop statement you can only call behavior that is implemented by LCL_FLIGHT that is or is not redifined by subclass **
+
+If you want to execute specific subclass behavior, you'll have to downcast(narrow) your reference and call the method.
