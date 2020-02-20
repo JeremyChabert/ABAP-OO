@@ -7,22 +7,26 @@ CLASS LCL_TANK DEFINITION.
 		DATA : mv_max_vol TYPE i,
 			   mv_vol TYPE i.
          METHODS: get_fuel_level RETURNING VALUE(rv_level) TYPE p,
-         constructor 
-         IMPORTING iv_width  TYPE i DEFAULT 10
-                   iv_length TYPE i DEFAULT 10
-                   iv_depth  TYPE i DEFAULT 5,
-				 fill_tank.
+         constructor
+         IMPORTING iv_width  TYPE i DEFAULT 10 "m
+                   iv_length TYPE i DEFAULT 10 "m
+                   iv_depth  TYPE i DEFAULT 5, "m
+				 fill_tank,
+		   get_weight RETURNING VALUE(rv_weight) type i.
 ENDCLASS.
 
 CLASS LCL_TANK IMPLEMENTATION.
 	METHOD constructor.
-		mv_max_vol = iv_width * iv_length * iv_depth.
+		mv_max_vol = iv_width * iv_length * iv_depth. "m3
 	ENDMETHOD.
 	METHOD get_fuel_level.
 		rv_level = ( mv_vol / mv_max_vol ) * 95.
 	ENDMETHOD.
 	METHOD fill_tank.
 		mv_vol = mv_max_vol.
+	ENDMETHOD.
+	METHOD get_weight.
+		rv_weight = mv_max_vol * 800 "volumic mass of kerosene
 	ENDMETHOD.
 ENDCLASS.
 ```
@@ -35,7 +39,7 @@ CLASS LCL_FLIGHT DEFINITION.
 		DATA : mot_tank TYPE TABLE OF REF TO lcl_tank.
 ENDCLASS.
 
-CLASS LCL_TANK IMPLEMENTATION.
+CLASS LCL_FLIGHT IMPLEMENTATION.
 	METHOD constructor.
 		[...]
 		"1st tank
