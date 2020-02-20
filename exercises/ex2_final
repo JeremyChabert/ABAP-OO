@@ -1,0 +1,106 @@
+*&---------------------------------------------------------------------*
+*& Report ZTRAINING_OO_JCT3
+*&---------------------------------------------------------------------*
+*&
+*&---------------------------------------------------------------------*
+REPORT ztraining_oo_jct3.
+CLASS lcl_flight DEFINITION.
+
+
+  PUBLIC SECTION.
+    CONSTANTS: mv_manufacturer TYPE string VALUE 'Airbus'.
+    CLASS-DATA: mv_nb_of_planes TYPE i.
+    DATA : mv_plane_number  TYPE string,
+           mv_nb_seats      TYPE i,
+           mv_nb_passengers TYPE i,
+           mb_on_ground     TYPE abap_bool,
+           mv_company       TYPE string.
+    CLASS-METHODS : class_constructor,
+      add_flight IMPORTING iv_plane_number  TYPE i
+                           iv_company       TYPE string
+                 RETURNING VALUE(ro_flight) TYPE REF TO lcl_flight,
+      get_nb_flights RETURNING VALUE(rv_nb_flights) TYPE i.
+    METHODS: constructor IMPORTING iv_plane_number TYPE i
+                                   iv_company      TYPE string,
+      get_free_seats RETURNING VALUE(rv_nb_seats) TYPE i,
+      add_passengers IMPORTING iv_passengers TYPE i,
+      declare_take_off,
+      take_off.
+  PRIVATE SECTION.
+    CONSTANTS: c_manufacturer_key TYPE string VALUE 'AIB_FAL350'.
+    DATA : mv_serial_number TYPE string.
+    CLASS-DATA: mv_cockpit_firmware TYPE string,
+                mo_random_gen       TYPE REF TO cl_abap_random_int,
+                mv_nb_flights       TYPE i.
+
+ENDCLASS.
+
+CLASS lcl_flight IMPLEMENTATION.
+  METHOD  class_constructor.
+
+    DATA: n    TYPE i,
+          seed TYPE i.
+
+    seed = cl_abap_random=>seed( ).
+
+    cl_abap_random_int=>create(
+      EXPORTING
+        seed = seed
+        min = 0
+        max = 10000
+      RECEIVING
+        prng = mo_random_gen
+    ).
+  ENDMETHOD.
+  METHOD 	constructor.
+    mv_plane_number = iv_plane_number.
+    mv_company  =  iv_company.
+    mv_nb_seats = 250.
+    mv_serial_number = mo_random_gen->get_next( ).
+  ENDMETHOD.
+  METHOD get_free_seats.
+    rv_nb_seats = mv_nb_seats - mv_nb_passengers..
+  ENDMETHOD.
+  METHOD add_flight.
+    ro_flight = NEW lcl_flight( iv_plane_number = iv_plane_number
+              iv_company = iv_company ).
+    ADD 1 TO mv_nb_flights.
+  ENDMETHOD.
+  METHOD add_passengers.
+    ADD  iv_passengers TO mv_nb_passengers.
+  ENDMETHOD.
+  METHOD declare_take_off.
+    WRITE: 'Flight' && mv_serial_number && 'taking off'.
+  ENDMETHOD.
+  METHOD take_off.
+    mb_on_ground = abap_false.
+*    me->declare_take_off( ).
+    "OR
+    declare_take_off( ).
+    "OR
+*    CALL METHOD declare_take_off( ).
+  ENDMETHOD.
+  METHOD get_nb_flights.
+    rv_nb_flights = mv_nb_flights.
+  ENDMETHOD.
+ENDCLASS.
+
+END-OF-SELECTION.
+
+  DATA : lo_flight TYPE REF TO lcl_flight.
+
+  CREATE OBJECT lo_flight
+    EXPORTING
+      iv_plane_number = '354'
+      iv_company      = 'SIA'.
+
+  lo_flight->add_passengers( 10 ).
+  lo_flight->take_off( ).
+
+  DATA(lo_flight2) = lcl_flight=>add_flight(
+        iv_plane_number = '9443'
+        iv_company    = 'AFR').
+
+  lo_flight->add_passengers( 56 ).
+  lcl_flight=>get_nb_flights( ).
+  WRITE:/ lcl_flight=>get_nb_flights( ).
