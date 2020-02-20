@@ -69,6 +69,8 @@ This will trigger a system error *MOVE_CAST_ERROR*
 
 :question: Why :question:
 
+![downcast](../img/upcast_downcast.png)
+
 ## Polymorphism
 
 When objects of several classes **react differently to the same method call**, we speak of **POLYMORPHISM**. 
