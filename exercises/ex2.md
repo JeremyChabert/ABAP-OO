@@ -142,7 +142,7 @@ CLASS lcl_flight IMPLEMENTATION.
 	METHOD add_flight.
 		ro_flight = NEW lcl_flight( iv_plane_number = iv_plane_number
 					    iv_company = iv_company ).
-		ADD 1 to mv_nb_flight.
+		ADD 1 to mv_nb_flights.
 	ENDMETHOD.
 ENDCLASS.
 ```
