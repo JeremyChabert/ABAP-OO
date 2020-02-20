@@ -6,13 +6,17 @@ Write this instead
 
 ```
 "#PART 6#
-  DATA: lo_flight   TYPE REF TO lcl_flight,
-        lot_flights TYPE TABLE OF REF TO lcl_flight.
+  DATA: lo_flight    TYPE REF TO lcl_flight,
+        lot_flights  TYPE TABLE OF REF TO lcl_flight,
+        lo_cargo     TYPE REF TO lcl_cargo,
+        lo_cargo1    TYPE REF TO lcl_cargo,
+        lo_airplane  TYPE REF TO lcl_airplane,
+        lo_airplane1 TYPE REF TO lcl_airplane.
 
-  DATA(lo_cargo) = NEW lcl_cargo(
+  CREATE OBJECT lo_cargo
+    EXPORTING
       iv_plane_number = 1234
-      iv_company      = 'DHL'
-  ).
+      iv_company      = 'DHL'.
 
   lo_cargo->add_package(
     EXPORTING
@@ -29,10 +33,10 @@ Write this instead
 
   APPEND lo_flight TO lot_flights.
 
-  DATA(lo_cargo1) = NEW lcl_cargo(
+  CREATE OBJECT lo_cargo1
+    EXPORTING
       iv_plane_number = 8421
-      iv_company      = 'FedEx'
-  ).
+      iv_company      = 'FedEx'.
 
   lo_cargo1->add_package(
     EXPORTING
@@ -42,10 +46,11 @@ Write this instead
 
   APPEND lo_cargo1 TO lot_flights.
 
-  DATA(lo_airplane) = NEW lcl_airplane(
+  CREATE OBJECT lo_airplane
+    EXPORTING
       iv_plane_number = 831
-      iv_airline      = 'AFR'
-  ).
+      iv_airline      = 'AFR'.
+
   lo_airplane->add_passengers(
     EXPORTING
       iv_passengers = 200
@@ -53,10 +58,10 @@ Write this instead
   ).
   APPEND lo_airplane TO lot_flights.
 
-  DATA(lo_airplane2) = NEW lcl_airplane(
+  CREATE OBJECT lo_airplane1
+    EXPORTING
       iv_plane_number = 7867
-      iv_airline = 'SIA'
-  ).
+      iv_airline      = 'SIA'.
 
   lo_airplane->add_passengers(
     EXPORTING
@@ -64,7 +69,7 @@ Write this instead
       iv_luggage    = 150
   ).
 
-  APPEND lo_airplane2 TO lot_flights.
+  APPEND lo_airplane1 TO lot_flights.
 
   LOOP AT lot_flights INTO lo_flight.
     WRITE:/ lo_flight->estimate_fuel_consumption( iv_distance = 1000 ).
@@ -104,7 +109,3 @@ And move this line in the constructor of ```LCL_FLIGHT```
 ```
 
 :bulb: compile 
-
-
-
-
