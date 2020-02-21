@@ -27,13 +27,11 @@ Constant attributes are declare using keyword **CONSTANTS**
 CLASS lcl_flight DEFINITION.
 
   PUBLIC SECTION.
-
+    CONSTANTS: c_manufacturer type string value 'Airbus'.
     DATA : mv_plane_number type string,
     	   mv_nb_seats type i,
 	   mv_nb_passengers type i.
     CLASS-DATA: mv_nb_of_planes type i.
-    CONSTANTS: mv_manufacturer type string value 'Airbus'.
-	
   PRIVATE SECTION.
 
 ENDCLASS
