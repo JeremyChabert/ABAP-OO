@@ -26,7 +26,7 @@ Oh wait, one last word! Exercises are fun BUT they are funnier if you type every
 [Inheritance](inheritance/inheritance.md)
   - [Exercise 5](exercises/ex5.md)
 
-[Advanced Inheritance](inheritance/advanced_inheritance.md)
+[Advanced Inheritance Concepts](inheritance/advanced_inheritance.md)
   - [Exercise 6](exercises/ex6.md)
   - [Exercise 7](exercises/ex7.md)
 
