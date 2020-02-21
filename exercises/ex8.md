@@ -83,6 +83,10 @@ CLASS lcl_flight DEFINITION ABSTRACT.
 ENDCLASS.
 ```
 
+Take a minute to explore all the options associated with **INTERFACES**
+
+![interface_options](../img/interface_options.png)
+
 ```
 CLASS lcl_cargo DEFINITION FINAL INHERITING FROM lcl_flight.
     [...]
@@ -128,6 +132,20 @@ CLASS lcl_cargo DEFINITION [...].
 ```	
 ```
 CLASS lcl_cargo IMPLEMENTATION.
+[...]
+  METHOD leave_airport.
+    lif_cockpit~initiate_take_off_seq( ).
+  ENDMETHOD.
+[...]
+```	
+```
+CLASS lcl_airplane DEFINITION [...]. 
+[...]
+  METHODS leave_airport REDEFINITION.
+[...]
+```	
+```
+CLASS lcl_airplane IMPLEMENTATION.
 [...]
   METHOD leave_airport.
     lif_cockpit~initiate_take_off_seq( ).
