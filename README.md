@@ -36,3 +36,4 @@ Oh wait, one last word! Exercises are fun BUT they are funnier if you type every
   - [Exercise 8](exercises/ex8.md)
  
 [Events](events/events.md)
+  - [Exercise 9](exercises/ex9.md)
