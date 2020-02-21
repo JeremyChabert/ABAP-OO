@@ -42,6 +42,18 @@ lo_flight1 and lo_flight2 have then 2 differents **POINTERS** to these **ADDRESS
 
 Even if they share the same state, they do not share the same address.
 
+Let's call this **IDENTITY**
+
+## Wording
+
+So far we have seen **CLASS** 
+
+We have also seen variable declared as ```TYPE REF TO```. It's a **REFERENCE VARIABLE**
+
+A **reference variable** is exactly what it tells: a variable that is a reference to something, here a **CLASS**
+
+Finally, with the **instantiation**, we provide an **IDENTITY** (through unique pointer) and a **STATE** to our **REFERENCE VARIABLE**
+
 ## Garbage collector
 
 The Garbage collector **deletes from memory any object as soon as there are no longer any reference on it.** 
