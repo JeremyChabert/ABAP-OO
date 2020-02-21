@@ -48,7 +48,7 @@ CLASS lcl_flight DEFINITION.
 
   PUBLIC SECTION.
   
-    CONSTANTS: mv_manufacturer TYPE string VALUE 'Airbus'.
+    CONSTANTS: c_manufacturer TYPE string VALUE 'Airbus'.
     CLASS-DATA: mv_nb_of_planes TYPE i.
     DATA : mv_plane_number  TYPE string,
            mv_nb_seats      TYPE i,
