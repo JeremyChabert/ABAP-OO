@@ -1,7 +1,5 @@
 # ABAP-OO
 
-# :construction: Exercises to come :construction:
-
 ## Forewords
 Hello everyone, welcome to ABAP-OO training. I hope you are all set for a fun session of learning about oriented object programming.
 
