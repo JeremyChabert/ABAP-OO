@@ -12,6 +12,7 @@ Let's start, shall we ?
 Oh wait, one last word! Exercises are fun BUT they are funnier if you type everything and you avoid to use copy/paste a.k.a ```CTRL + C, CTRL + V```
 
 ## Topics
+[OOP](OOP.md)
 
 [Class](class/class.md)
   - [Exercise 1](exercises/ex1.md)
