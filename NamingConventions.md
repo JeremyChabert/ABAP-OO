@@ -18,3 +18,7 @@ Signature of methods are to be named conventionally as follow:
 - **S** for structure/work-area
 - **T** for table
 - **O** for object
+
+# Clean code
+
+https://github.com/SAP/styleguides/blob/master/clean-abap/CleanABAP.md
